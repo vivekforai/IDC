@@ -1,0 +1,48 @@
+version: "3.1"
+
+intents:
+  - ask_task_status
+  - ask_task_status_by_status
+  - ask_task_status_by_milestone
+  - ask_task_status_by_status_and_milestone
+  - ask_chart_visualization
+  - i_am_a_bot
+
+entities:
+  - milestone
+  - status
+  - chart_type
+
+slots:
+  milestone:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: milestone
+  status:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: status
+  chart_type:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: chart_type
+
+responses:
+  utter_ask_milestone:
+    - text: "Which milestone are you asking about? (e.g., MS-001, MS-002)"
+  utter_ask_status:
+    - text: "What is the task status you're referring to? (e.g., Completed, In Progress)"
+  utter_ask_chart_type:
+    - text: "What type of chart would you like? (e.g., bar chart, pie chart)"
+  utter_default:
+    - text: "Sorry, I didn’t understand that. Can you rephrase?"
+
+actions:
+  - action_query_tasks
+  - action_generate_visualization
